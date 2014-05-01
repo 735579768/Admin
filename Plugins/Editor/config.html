@@ -1,0 +1,24 @@
+<form action="__SELF__" method="post" class="form-horizontal">
+         <div class="form-group">
+            <label class="item-label">默认编辑器类型<span class="check-tips">（默认编辑器）</span></label>
+            <div class="controls">
+            <select id='edittype' name='edittype' class="form-control input-mid">
+            <option value="1">富文本编辑器</option>
+            <option value="2">百度编辑器</option>
+            <option value="3">UBB编辑器</option>
+            <option value="4">THINK编辑器</option>
+            </select>
+            </div>
+        </div>
+        
+        <div class="form-group">
+        <label>
+            <button class="btn btn-primary" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+            <button class="btn btn-primary" onclick="javascript:history.back(-1);return false;">返 回</button>
+        </label></div>
+    </form>
+    <script type="text/javascript">
+        $(function(){
+            $('#edittype').val({$info.edittype});
+        });
+    </script>

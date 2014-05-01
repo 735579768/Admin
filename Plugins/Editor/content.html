@@ -1,0 +1,89 @@
+<textarea id="editor_id" style="width:100%;visiable:hidden;" class="cl" name="{$name}">{$content}</textarea>
+<switch name="type">
+	<case value='1'>
+			<link rel="stylesheet" href="__STATIC__/kindeditor/default/default.css" />
+			<script charset="utf-8" src="__STATIC__/kindeditor/kindeditor-min.js"></script>
+			<script charset="utf-8" src="__STATIC__/kindeditor/zh_CN.js"></script>
+			 
+			<script type="text/javascript">
+				var editor;
+				KindEditor.ready(function(K) {
+					editor = K.create('textarea[name="{$name}"]', {
+						allowFileManager : false,
+						themesPath: K.basePath,
+						//width: '100%',
+						height: '300px',
+						resizeType: '',
+						pasteType : 2,
+						urlType : 'absolute',
+						fileManagerJson : '{:U('fileManagerJson')}',
+						uploadJson : '{:UP('Editor/ke_upimg')}'
+					});
+				});
+
+				$(function(){
+					$('textarea[name="{$name}"]').closest('form').submit(function(){
+						editor.sync();
+					});
+				})
+			</script>
+		</case>
+<case value='2'>
+	<script type="text/javascript" charset="utf-8" src="__STATIC__/ueditor/ueditor.config.js"></script>
+			<script type="text/javascript" charset="utf-8" src="__STATIC__/ueditor/ueditor.all.js"></script>
+			<script type="text/javascript" charset="utf-8" src="__STATIC__/ueditor/lang/zh-cn/zh-cn.js"></script>
+			<script type="text/javascript">
+				$('textarea[name="{$name}"]').attr('id', 'editor_id_{$name}');
+				window.UEDITOR_HOME_URL = "__STATIC__/ueditor";
+				window.UEDITOR_CONFIG.initialFrameHeight = parseInt('200');
+				window.UEDITOR_CONFIG.scaleEnabled = true;
+				window.UEDITOR_CONFIG.imageUrl = '{:UP('Editor/ue_upimg')}';
+				window.UEDITOR_CONFIG.imagePath = '';
+				window.UEDITOR_CONFIG.imageFieldName = 'imgFile';
+				UE.getEditor('editor_id_{$name}');
+			</script>
+</case>
+<case value="3">
+		{// UBB 官网http://xheditor.com/demos/demo07.html}
+		<script type="text/javascript" src="__STATIC__/js/jquery-migrate-1.2.1.min.js"></script>
+		<script charset="utf-8" src="__STATIC__/xheditor/xheditor-1.2.1.min.js"></script>
+		<script charset="utf-8" src="__STATIC__/xheditor/xheditor_lang/zh-cn.js"></script>
+		<script type="text/javascript" src="__STATIC__/xheditor/xheditor_plugins/ubb.js"></script>
+		<script type="text/javascript">
+		var submitForm = function (){
+			$('textarea[name="{$name}"]').closest('form').submit();
+		}
+		$('textarea[name="{$name}"]').attr('id', 'editor_id_{$name}')
+		$('#editor_id_{$name}').xheditor({
+			tools:'full',
+			showBlocktag:false,
+			forcePtag:false,
+			beforeSetSource:ubb2html,
+			beforeGetSource:html2ubb,
+			shortcuts:{'ctrl+enter':submitForm},
+			'height':'200',
+			'width' :'100%'
+		});
+		</script>
+	</case>
+	<case value="4">
+		{// markdown }
+		<link rel="stylesheet" href="__STATIC__/thinkeditor/skin/default/style.css">
+		<script type="text/javascript" src="__STATIC__/js/jquery-migrate-1.2.1.min.js"></script>
+		<script type="text/javascript" src="__STATIC__/thinkeditor/jquery.thinkeditor.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				$('textarea[name="{$name}"]').attr('id', 'editor_id_{$name}');
+				var options = {
+					"items"  : "h1,h2,h3,h4,h5,h6,-,link,image,-,bold,italic,code,-,ul,ol,blockquote,hr,-,fullscreen",
+			        "width"  : "100%", //宽度
+			        "height" : "200", //高度
+			        "lang"   : "zh-cn", //语言
+			        "tab"    : "    ", //Tab键插入的字符， 默认为四个空格
+                    "uploader": "{:UP('Editor/upload')}"
+			    };
+			    $('#editor_id_{$name}').thinkeditor(options);
+			})
+		</script>
+	</case>
+</switch>

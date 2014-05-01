@@ -1,0 +1,25 @@
+    <div class="box">
+    <div class="title">系统信息</div>
+
+	<div class="row">
+	  <div class="col-md-6">服务器操作系统</div>
+	  <div class="col-md-6">{$Think.const.PHP_OS}</div>
+	</div>
+	<div class="row">
+	  <div class="col-md-6">运行环境</div>
+	  <div class="col-md-6">{$_SERVER['SERVER_SOFTWARE']}</div>
+	</div>
+	<div class="row">
+	  <div class="col-md-6">PHP版本</div>
+	  <div class="col-md-6">{:phpversion()}</div>
+	</div>
+	<div class="row">
+	  <div class="col-md-6">MYSQL版本</div>
+	  <div class="col-md-6"><php>$system_info_mysql = M()->query("select version() as v;");</php>{$system_info_mysql.0.v}</div>
+	</div>
+	<div class="row">
+	  <div class="col-md-6">上传限制</div>
+	  <div class="col-md-6">{:ini_get('upload_max_filesize')}</div>
+	</div>
+
+	</div>

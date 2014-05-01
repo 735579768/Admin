@@ -1,0 +1,75 @@
+<extend name="Public:base" />
+<block name="right">
+<div class="module cl">
+    <div class="main-title">
+<h2>添加菜单</h2>
+</div>
+
+    <form action="{:U()}" method="post" class="form-horizontal">
+        <div class="form-group">
+            <label class="item-label">标题<span class="check-tips">（用于后台显示的配置标题）</span></label>
+            <div class="controls">
+                <input type="text" class="form-control input-large" name="title" value="{$info.title|default=''}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="item-label">排序<span class="check-tips">（用于分组显示的顺序）</span></label>
+            <div class="controls">
+                <input type="text" class="form-control input-small" name="sort" value="{$info.sort|default=0}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="item-label">链接<span class="check-tips">（U函数解析的URL或者外链）</span></label>
+            <div class="controls">
+                <input type="text" class="form-control input-large" name="url" value="{$info.url|default=''}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="item-label">上级菜单<span class="check-tips">（所属的上级菜单）</span></label>
+            <div class="controls">
+                <select name="pid" class="form-control input-mid">
+                    <volist name="Menus" id="menu">
+                        <option value="{$menu.id}">{$menu.title_show}</option>
+                    </volist>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="item-label">分组<span class="check-tips">（用于左侧分组二级菜单）</span></label>
+            <div class="controls">
+                <input type="text" class="form-control input-large" name="group" value="{$info.group|default=''}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="item-label">是否隐藏<span class="check-tips"></span></label>
+            <div class="controls">
+               <div class="radio"> <label><input type="radio" name="hide" value="1">是</label></div>
+               <div class="radio">   <label><input type="radio" name="hide" checked="checked" value="0">否</label></div>
+            </div>
+        </div>
+        <div class="form-group">
+        <label>
+            <input type="hidden" name="id" value="{$info.id|default=''}">
+            <button class="btn btn-primary ajax-post" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+            <button class="btn btn-primary" onclick="javascript:history.back(-1);return false;">返 回</button>
+        </label></div>
+    </form>
+</block>
+<block name="script">
+<script>
+$(function(){
+	//顶级菜单
+	var pid={$info.pid};
+	if(pid=='')pid={:I('get.pid')};
+	$('select[name="pid"]').val(pid);
+	//显示隐藏
+	var a='{$info.hide}';
+	if(a==='1'){
+		$('input:radio[name="hide"]').eq(0).attr("checked","checked");
+		}else{
+		$('input:radio[name="hide"]').eq(1).attr("checked","checked");	
+			}
+	
+	});
+</script>
+</block>

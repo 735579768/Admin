@@ -1,0 +1,25 @@
+@charset "utf-8";
+ul,ol,li,p,h1,h2,h3,h4,h5,form,table,td,img,div,a,dl,dt,dd{margin:0;padding:0;border:0;}
+html,body,select,input{padding:0;margin:0;text-align:left;font:14px/1.7 'microsoft yahei';}
+body{color:#000;}
+ul,li,ol{list-style-type:none;}
+input{outline:none;}
+img{vertical-align:bottom;}
+table{border-collapse:collapse;}
+a img{border:none;}
+a{color:#000;text-decoration:none;}
+a:hover{text-decoration:underline;}
+.nobd{border:none;}
+.w100{ width:100%;}
+.wauto{ width:auto;}
+.fl{ float:left;}
+.fr{ float:right;}
+.rl{float:right; display:inline;}
+ul{*display: inline; /* fixed ie */zoom:1;}
+.cf:after,.cl:after {content:"";visibility: hidden;display: block;font-size: 0;content: &quot; &quot;;clear: both;height: 0;}
+* html .cl,* html .cf{ zoom: 1; } /* IE6 */
+*:first-child+html .cl,*:first-child+html .cf{ zoom: 1; } /* IE7 */
+*{ margin:0px; padding:0px;}
+.hidden{ display:none;}
+.show{ display:block;}
+.inline{ display:inline-block;}

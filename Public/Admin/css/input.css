@@ -1,0 +1,52 @@
+/* 表单组件 */
+.text,.textarea {	padding: 4px;	border: 1px solid #eeeeee;	background-color: #fff;	transition: all .3s linear;}
+.text {	width: 220px;	height: 20px;	vertical-align: middle;}
+.focus {	border: 1px solid #a6e1f3;	box-shadow: 0 0 12px #baf7ff;}
+.textarea {	display: block;}
+.textarea textarea {	width: 100%;	height: 100px;	border: 0 none;}
+.checkbox + .checkbox,.radio + .radio {	margin-left: 15px;}
+.checkbox, .radio {	display: inline-block;	height: 20px;	line-height: 20px;}
+.checkbox input,.radio input {	margin-right: 5px;	*margin-right: 1px;	vertical-align: -1px;}
+select {	padding: 2px;	height: 27px;	line-height: 27px;	border: 1px solid #ccc;	border-radius: 3px;}
+select[multiple] {	height: 200px;}
+/* 表单宽度预设 */
+.input-large {	width: 390px;}
+.input-mid {	width: 150px;}
+.input-small {	width: 100px;}
+.input-mini {	width: 50px;}
+.input-8x {	width: 400px;}
+.input-7x {	width: 350px;}
+.input-6x {	width: 300px;}
+.input-5x {	width: 250px;}
+.input-4x {	width: 200px;}
+.input-3x {	width: 150px;}
+.input-2x {	width: 100px;}
+/* = 按钮------------------------------------------ *//* 常规按钮 */
+.btn {    display: inline-block;    margin-right: 5px;    padding: 6px 16px;    font-size: 14px;    line-height: 18px;    color: #edffd1;    text-align: center;    vertical-align: middle;    cursor: pointer;    border: 0 none;	background-color: #4bbd00;	*outline: 0 none;}
+.btn:hover {    color: #ffffff;    text-decoration: none;    background-color: #4cdb00;    border-bottom: 0 none;}
+.submit-btn,.btn-return {    padding: 10px 50px;    color: #fff;    font-weight: bold;    border-color: transparent;}
+.submit-btn {    background-color: #CC3900;}
+.submit-btn:hover {    color: #fff;    background-color: #ff2610;}
+
+.container .row{ font-size:14px; margin:5px 0px;}
+.col-large{ width:50px;}
+.col-mid{width:30px;}
+.col-small{width:20px;}
+.btn-primary,
+.btn-primary:hover{background:#4bbd00;color:#fff;}
+.btn-warning,
+.btn-warning:hover{ background:#ed9c28;color:#fff;}
+.btn-success,
+.btn-success:hover{ background:#5cb85c;;color:#fff;}
+.btn-danger,
+.btn-danger:hover{background:#d2322d;color:#fff;}
+
+.form-group label{height: 25px;padding: 2px 0px;font-size: 14px;color: #666;margin: 10px 0px;}
+.form-group{ /*margin:0px;*/}
+
+/* uploadify插件上传按钮 */
+.uploadify-button {
+	color: #fff;
+	background-color: #6bb05f;
+	text-align:center;
+}

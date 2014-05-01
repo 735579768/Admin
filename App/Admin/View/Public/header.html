@@ -1,0 +1,25 @@
+<block name="header">
+<div class="logo fl">
+管理平台
+</div>
+
+<div class="mainmenu fl">
+<ul>
+<volist name="__MENU__.main" id="vo">
+<li><a href="{$vo.url|U}">{$vo.title}</a></li>
+</volist>
+</ul>
+</div>
+
+<div class="rl info">
+	
+<ul>
+<li><a class="btn btn-warning" href="javascript:history.go(-1);">返回 </a></li>
+<li><a class="btn" href="{:U('Member/updatepwd')}">修改密码 </a></li>
+
+<li><a  class="logout btn" href="{:U('Public/logout')}">退出</a></li>
+<li><a class="ajax-href-del btn" href="{:U('Public/clearcache')}">清空缓存</a></li>
+<li><a class="btn" target="_blank" href="/">网站首页</a></li>
+</ul>
+</div>
+</block>
