@@ -95,13 +95,16 @@ class ArticleController extends AdminController {
   */
       protected function getgrids($list_grid){
         //解析列表规则
+        // trace($list_grid);
         $fields = array();
         $grids  = preg_split('/[;\r\n]+/s', $list_grid);
+       
         foreach ($grids as &$value) {
           // 字段:标题:链接
           $val      = explode(':', $value);
           // 支持多个字段显示
           $field   = explode(',', $val[0]);
+         // trace($val);
           $value    = array('field' => $field, 'title' => $val[1]);
           if(isset($val[2])){
             // 链接信息
@@ -597,4 +600,34 @@ class ArticleController extends AdminController {
             $this->error('操作失败');
         }
     }
+	//添加文章标签
+	public function addtag($title=null){
+		$reinfo=array(
+		      'info'=>'',
+              'status'=>0,
+              'tagid'=>0,
+              'title'=>$title,
+              'url'=>'',
+              'norefresh'=>1
+		);
+        if(!empty($title)){
+            $model=M('tag')->where("title='$title'")->find();
+            if(empty($model)){
+                    $id=M('tag')->add(array('title'=>$title));
+                    if($id>0){
+                        $reinfo['tagid']=$id;
+                        $reinfo['status']=1;
+                        $reinfo['info']='添加成功';
+                    }else{
+                        $reinfo['info']='添加标签失败';
+                    }
+             }else{
+                $reinfo['info']='此标签已经存在';
+             }
+        }else{
+            $reinfo['info']='标题不能为空';
+        }
+        echo json_encode($reinfo);
+        exit();
+		}
 }

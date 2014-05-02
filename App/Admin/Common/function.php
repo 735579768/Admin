@@ -224,6 +224,7 @@ function get_attribute_type($type=''){
         'editor'    =>  array('编辑器','text NOT NULL'),
         'picture'   =>  array('上传图片','int(10) UNSIGNED NOT NULL'),
         'file'      =>  array('上传附件','int(10) UNSIGNED NOT NULL'),
+		'custom'      =>  array('自定义表单','varchar(100) NOT NULL'),
     );
     return $type?$_type[$type][0]:$_type;
 }
@@ -555,4 +556,28 @@ function get_list_field($data, $grid,$model){
         $value  =   implode(' ',$val);
     }
     return $value;
+}
+
+/**
+ * 根据条件字段获取指定表的数据
+ * @param mixed $value 条件，可用常量或者数组
+ * @param string $condition 条件字段
+ * @param string $field 需要返回的字段，不传则返回整个数据
+ * @param string $table 需要查询的表
+ * @author huajie <banhuajie@163.com>
+ */
+function get_table_field($value = null, $condition = 'id', $field = null, $table = null){
+    if(empty($value) || empty($table)){
+        return false;
+    }
+
+    //拼接参数
+    $map[$condition] = $value;
+    $info = M(ucfirst($table))->where($map);
+    if(empty($field)){
+        $info = $info->field(true)->find();
+    }else{
+        $info = $info->getField($field);
+    }
+    return $info;
 }

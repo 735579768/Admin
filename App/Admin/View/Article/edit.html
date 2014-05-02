@@ -181,6 +181,9 @@
 							    }
 								</script>
                             </case>
+                            <case value="custom">
+                            {:W('CustomForm/'.$field['extra'],array($field['name'],$data[$field['name']]))}
+                            </case>
                             <default/>
                             <input type="text" class="form-control input-large" name="{$field.name}" value="{$data[$field['name']]}">
                         </switch>

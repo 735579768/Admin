@@ -117,7 +117,7 @@ function topmsg(da){
 								$('#topmsg').remove();
 								$('.disabled').removeClass('disabled');
 								//当出现未知请求的时候页面不刷新
-								if(typeof(da.info)!='undefined'){
+								if(typeof(da.info)!='undefined' && typeof(da.norefresh)=='undefined'){
 								if(reloadbool){
 									if(da.url!=''){
 										window.location=da.url;

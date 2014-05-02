@@ -69,6 +69,7 @@ return array(
 		'callback' => false, //检测文件是否存在回调函数，如果存在返回文件信息数组
     ),
 
+	 'UC_AUTH_KEY'=>'adminrootkl',
 	    /* 模板相关配置 */
     'TMPL_PARSE_STRING' => array(
 	  	'__STATIC__' => __ROOT__ . '/Public/Static',
