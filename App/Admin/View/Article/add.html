@@ -195,8 +195,9 @@
 		</volist>
 
 		<div class="form-group cf">
-			<button class="btn submit-btn ajax-post hidden" id="submit" type="submit" target-form="form-horizontal">确 定</button>
-			<a class="btn btn-return" href="{:U('article/index?cate_id='.$cate_id)}">返 回</a>
+<a class="btn ajax-post btn-large">确 定</a>
+
+			<a class="btn btn-warning btn-large" href="{:U('article/index?cate_id='.$cate_id)}">返 回</a>
 			<if condition="C('OPEN_DRAFTBOX') and (ACTION_NAME eq 'add' or $info['status'] eq 3)">
 			<button class="btn save-btn" url="{:U('article/autoSave')}" target-form="form-horizontal" id="autoSave">
 				存草稿

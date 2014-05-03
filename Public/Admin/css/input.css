@@ -21,12 +21,17 @@ select[multiple] {	height: 200px;}
 .input-4x {	width: 200px;}
 .input-3x {	width: 150px;}
 .input-2x {	width: 100px;}
+
+
 /* = 按钮------------------------------------------ *//* 常规按钮 */
 .btn {    display: inline-block;    margin-right: 5px;    padding: 6px 16px;    font-size: 14px;    line-height: 18px;    color: #edffd1;    text-align: center;    vertical-align: middle;    cursor: pointer;    border: 0 none;	background-color: #4bbd00;	*outline: 0 none;}
 .btn:hover {    color: #ffffff;    text-decoration: none;    background-color: #4cdb00;    border-bottom: 0 none;}
 .submit-btn,.btn-return {    padding: 10px 50px;    color: #fff;    font-weight: bold;    border-color: transparent;}
 .submit-btn {    background-color: #CC3900;}
 .submit-btn:hover {    color: #fff;    background-color: #ff2610;}
+
+.btn-large { padding: 10px 50px; margin:20px; color: #fff;font-weight: bold;border-color: transparent;}
+
 
 .container .row{ font-size:14px; margin:5px 0px;}
 .col-large{ width:50px;}

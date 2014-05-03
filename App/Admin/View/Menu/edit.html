@@ -2,7 +2,7 @@
 <block name="right">
 <div class="module cl">
     <div class="main-title">
-<h2>添加菜单</h2>
+<h2>{$meta_title}</h2>
 </div>
 
     <form action="{:U()}" method="post" class="form-horizontal">
@@ -50,9 +50,9 @@
         <div class="form-group">
         <label>
             <input type="hidden" name="id" value="{$info.id|default=''}">
-            <button class="btn btn-primary ajax-post" id="submit" type="submit" target-form="form-horizontal">确 定</button>
-            <button class="btn btn-primary" onclick="javascript:history.back(-1);return false;">返 回</button>
-        </label></div>
+
+        </label>			 <a class="btn ajax-post btn-large">确 定</a>
+			<a class="btn btn-warning btn-large" href="javascript:history.go(-1);">返 回</a></div>
     </form>
 </block>
 <block name="script">

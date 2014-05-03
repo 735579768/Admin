@@ -3,6 +3,7 @@ namespace Admin\Controller;
 use Think\Controller;
 class MenuController extends AdminController {
     public function index(){
+		$this->assign('meta_title','菜单列表');
         $tree = D('Menu')->getTree(0,'id,title,url,hide,sort,pid,group,status');
         $this->assign('tree', $tree);
 		$this->display();
