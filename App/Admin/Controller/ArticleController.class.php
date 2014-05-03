@@ -173,7 +173,7 @@ class ArticleController extends AdminController {
                        ->order( 'l.id DESC')
                        ->join ( $r_table.' r ON l.id=r.id' );
         $_REQUEST = array();
-        $list = $this->lists($list,null,null,null,'l.id id,l.pid pid,l.category_id,l.title title,l.update_time update_time,l.uid uid,l.status status,r.content content' );
+        $list = $this->lists($list,null,"update_time desc",null,'l.id id,l.pid pid,l.category_id,l.title title,l.update_time update_time,l.uid uid,l.status status,r.content content' );
         int_to_string($list);
 
         if($map['pid']){
