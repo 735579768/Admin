@@ -1,0 +1,246 @@
+<extend name="Public/base" />
+<block name="right">
+
+
+<style>
+/* 拖动排序列表 */
+.dragsort {
+
+}
+.edit_sort {
+    display: inline-block;
+    border:1px solid #cdcdcd;
+    color: #404040;
+    line-height: 35px;
+    width: 20%;
+    height: 376px;
+
+}
+.edit_sort span {
+    background: #EEEEEE;
+    width: 100%;
+    display: inline-block;
+    font-weight: bold;
+    text-indent: 10px;
+    border-bottom: 1px solid #cdcdcd;
+    margin-bottom:5px;
+}
+.edit_sort ul {
+    padding: 0 5px;
+    overflow-y:scroll;
+    height: 324px;
+}
+.edit_sort_l {
+    float: left;
+    margin-right: 20px;
+}
+.tab2 p {
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-indent: 15px;
+}
+.dragsort li {
+    margin-bottom: 5px;
+    padding: 0 6px;
+    height: 30px;
+    line-height: 30px;
+    border: 1px solid #eee;
+    background-color: #fff;
+	overflow: hidden;
+}
+.dragsort li em {
+    font-style: normal;
+}
+.dragsort li b {
+    display: none;
+    float: right;
+    padding: 0 6px;
+    font-weight: bold;
+    color: #000;
+}
+.dragsort li:hover b {
+    display: block;
+}
+.dragsort .draging-place {
+    border-style: dashed;
+    border-color: #ccc;
+}
+</style>
+	<div class="main-title cl">
+		<h2><if condition="ACTION_NAME eq 'add'">新增<else/>编辑</if>模型</h2>
+	</div>
+
+	<!-- 标签页导航 -->
+	<div class="tab-wrap">
+		<ul class="tab-nav nav cl">
+			<li data-tab="tab1" class="current tabnav"><a href="javascript:void(0);">基 础</a></li>
+			<li data-tab="tab2" class="tabnav"><a href="javascript:void(0);">设 计</a></li>
+			<li data-tab="tab3" class="tabnav"><a href="javascript:void(0);">高 级</a></li>
+		</ul>
+		<div class="tab-content">
+			<!-- 表单 -->
+			<form id="form" action="{:U('update')}" method="post" class="form-horizontal doc-modal-form">
+				<!-- 基础 -->
+				<div id="tab1" class="tab-pane in tab1">
+					<div class="form-group cl">
+						<label class="item-label">模型标识<span class="check-tips">（请输入文档模型标识）</span></label>
+						<div class="controls">
+							<input type="text" class="form-control input-large" name="name" value="{$info.name}">
+						</div>
+					</div>
+					<div class="form-group cl">
+						<label class="item-label">模型名称<span class="check-tips">（请输入模型的名称）</span></label>
+						<div class="controls">
+							<input type="text" class="form-control input-large" name="title" value="{$info.title}">
+						</div>
+					</div>
+					<div class="form-group cl">
+						<label class="item-label">模型类型<span class="check-tips">（目前支持独立模型和文档模型）</span></label>
+						<div class="controls">
+							<select id="modeltype" name="extend">
+								<option value="0">独立模型</option>
+								<option value="1">文档模型</option>
+							</select>
+						</div>
+					</div>
+				</div>
+
+				<div id="tab2" class="tab-pane tab2">
+					<div class="form-group cl">
+						<label class="item-label">字段管理<span class="check-tips">（只有新增了字段，该表才会真正建立）</span></label>
+
+						<div class="controls">
+						<div class="form-control cl edit_sort edit_sort_l form_field_sort">
+							<span>字段列表 		[ <a href="{:U('Attribute/add?model_id='.$info['id'])}" target="_balnk">新增</a>
+							<a href="{:U('Attribute/index?model_id='.$info['id'])}" target="_balnk">管理</a> ] </span>
+							<ul class="dragsort">
+								<foreach name="fields" item="field" key="k">
+										<li >
+											<em >{$field['title']} [{$field['name']}]</em>
+										</li>
+								</foreach>
+							</ul>
+						</div>
+
+						</div>
+					</div>
+					<div class="form-group cl">
+						<label class="item-label">表单显示分组<span class="check-tips">（用于表单显示的分组，以及设置该模型表单排序的显示）</span></label>
+						<div class="controls">
+							<input type="text" class="form-control input-large" name="field_group" value="{$info.field_group}">
+						</div>
+					</div>
+					<div class="form-group cl">
+					<label class="item-label">表单显示排序<span class="check-tips">（直接拖动进行排序）</span></label>
+					<div class="control">
+                    <volist name=":parse_field_attr($info['field_group'])" id="vo">
+						<div class="form-control cl edit_sort edit_sort_l form_field_sort">
+							<span>{$vo}</span>
+							<ul class="dragsort needdragsort" data-group="{$key}">
+								<foreach name="fields" item="field" key="k">
+									<if condition="(($field['group'] eq $key) or($i eq 1 and !isset($field['group']))) and ($field['is_show'] eq 1)">
+										<li class="getSort">
+											<em data="{$field['id']}">{$field['title']} [{$field['name']}]</em>
+											<input type="hidden" name="field_sort[{$key}][]" value="{$field['id']}"/>
+										</li>
+									</if>
+								</foreach>
+							</ul>
+						</div>
+					</volist>
+                    </div>
+					</div>
+
+					<div class="form-group cl">
+						<label class="item-label">列表定义<span class="check-tips">（默认列表模板的展示规则）</span></label>
+						<div class="controls">
+							<label class="form-controlarea input-large">
+								<textarea class="form-control" name="list_grid">{$info.list_grid}</textarea>
+							</label>
+						</div>
+					</div>
+
+					<div class="form-group cl">
+						<label class="item-label">默认搜索字段<span class="check-tips">（默认列表模板的默认搜索项）</span></label>
+						<div class="controls">
+							<input type="text" class="form-control input-large" name="search_key" value="{$info.search_key}">
+						</div>
+					</div>
+					<div class="form-group cl">
+						<label class="item-label">高级搜索字段<span class="check-tips">（默认列表模板的高级搜索项）</span></label>
+						<div class="controls">
+							<input type="text" class="form-control input-large" name="search_list" value="{$info.search_list}">
+						</div>
+					</div>
+				</div>
+
+				<!-- 高级 -->
+				<div id="tab3" class="tab-pane tab3">
+					<div class="form-group cl">
+						<label class="item-label">列表模板<span class="check-tips">（自定义的列表模板，放在Application\Admin\View\Think下，不写则使用默认模板）</span></label>
+						<div class="controls">
+							<input type="text" class="form-control input-large" name="template_list" value="{$info.template_list}">
+						</div>
+					</div>
+					<div class="form-group cl">
+						<label class="item-label">新增模板<span class="check-tips">（自定义的新增模板，放在Application\Admin\View\Think下，不写则使用默认模板）</span></label>
+						<div class="controls">
+							<input type="text" class="form-control input-large" name="template_add" value="{$info.template_add}">
+						</div>
+					</div>
+					<div class="form-group cl">
+						<label class="item-label">编辑模板<span class="check-tips">（自定义的编辑模板，放在Application\Admin\View\Think下，不写则使用默认模板）</span></label>
+						<div class="controls">
+							<input type="text" class="form-control input-large" name="template_edit" value="{$info.template_edit}">
+						</div>
+					</div>
+					<div class="form-group cl">
+						<label class="item-label">列表数据大小<span class="check-tips">（默认列表模板的分页属性）</span></label>
+						<div class="controls">
+							<input type="text" class="form-control input-small" name="list_row" value="{$info.list_row}">
+						</div>
+					</div>
+				</div>
+
+				<!-- 按钮 -->
+				<div class="form-group cl">
+					<label class="item-label"></label>
+					<div class="controls edit_sort_btn">
+						<input type="hidden" name="id" value="{$info['id']}"/>
+				        <a class="btn ajax-post btn-large">确 定</a>
+			<a class="btn btn-warning btn-large" href="javascript:history.go(-1);">返 回</a>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</block>
+<block name="script">
+<script type="text/javascript" src="__STATIC__/JS/jquery.dragsort-0.5.1.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+//拖曳插件初始化
+$(function(){
+	$(".needdragsort").dragsort({
+	     dragSelector:'li',
+	     placeHolderTemplate: '<li class="draging-place">&nbsp;</li>',
+	     dragBetween:true,	//允许拖动到任意地方
+	     dragEnd:function(){
+	    	 var self = $(this);
+	    	 self.find('input').attr('name', 'field_sort[' + self.closest('ul').data('group') + '][]');
+	     }
+	 });
+	 
+//设置模型类型
+$('#modeltype').val({$info.extend}); 
+//使用方法
+$('.tab-wrap').mytab({		'ev':'click',
+							'navcls':'.tabnav',//默认导航类
+							'divcls':'.tab-pane',//默认内容块
+                            'navhovercls':'current',//nav显示时候拥有的类
+                            'divshowcls':'d1'//div显示的时候拥有的类
+});
+});
+
+</script>
+</block>
+

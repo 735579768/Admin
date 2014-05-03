@@ -1,0 +1,14 @@
+<extend name="Public:base" />
+<block name="left">
+</block>
+<block name="right">
+{:hook('Admininfo',array('1','2'))}
+</block>
+<block name="script">
+<script>
+$(function(){
+$('.left').remove();
+$('.right').css('marginLeft','10px');
+});
+</script>
+</block>

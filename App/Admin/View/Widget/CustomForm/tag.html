@@ -1,0 +1,91 @@
+<style>
+.yuntaged span,.yuntag span{ cursor:pointer;padding:5px; margin:2px; line-height:25px; display:block; float:left;background: #fff;border: solid 1px #dbdbdb;}
+.yuntaged span i{ color:#f00; font-style:normal;}
+</style>
+<input name="{$data.name}" type="hidden" class="form-control input-mid" value="{$data.value}" readonly="readonly" />
+<div class="yuntaged cl"></div>
+<hr>
+<div class="controls cl"><input type="text" class="form-control input-mid fl" value="" /> <a class="btn btn-primary addtag" href="javascript:;">添加新标签</a></div>
+<h2>点击添加已有标签</h2>
+<div class="yuntag cl">
+<volist name="_list" id="vo">
+<span  data-id="{$vo.id}">{$vo.title}</span>
+</volist>
+</div>
+<script>
+$(function(){
+	//初始化已选标签
+	var tagval=$('input[name="tag"]').val();
+	var str='';
+	$('.yuntag span').each(function(index, element) {
+        var id=$(this).attr('data-id');
+		var text=$(this).text();
+    	var a=tagval.indexOf(id);
+		if(a!==-1){
+			str+='<span data-id='+id+'>'+text+'<i>X</i></span>';
+			}
+	});
+	$('.yuntaged').append(str);
+	
+	//遍历已经添加的标签设置到表单中
+	function setTagid(){
+				//遍历已经有的标签
+				var str1='';
+				$('.yuntaged span').each(function(index, element) {
+					if(str1==''){
+						str1=$(this).attr('data-id');
+						}else{
+						str1+=','+$(this).attr('data-id');	
+							}
+				});
+				$('input[name="tag"]').val(str1);		
+		}
+	//绑定删除标签
+	function binddeltag(){
+		$('.yuntaged span i').bind('click',function(){
+			$(this).parent().remove();
+			setTagid();
+			});		
+		}
+	binddeltag();
+	//绑定添加标签
+	function bindaddtag(){
+		$('.yuntag span').bind('click',function(){
+			var id=$(this).attr('data-id');
+			var text=$(this).text();
+			var str='<span data-id='+id+'>'+text+'<i>X</i></span>';
+			$('.yuntaged').append(str);
+			setTagid();
+			//再次绑定删除标签
+			binddeltag();
+			});		
+		}
+	bindaddtag();
+
+	//添加已有标签
+	$('.addtag').bind('click',function(){
+		var val=$(this).prev().val();
+		$.ajax({
+			'url':"{:U('Article/addtag')}",
+			'datatype':'JSON',
+			'data':{title:val},
+			'success':function(data){
+				data=eval('('+data+')');
+				if(data.status!='0'){
+				topmsg(data);
+				//把添加成功的标签添加上去
+				var str='<span data-id='+data.tagid+'>'+data.title+'<i>X</i></span>';
+				$('.yuntaged').prepend(str);
+				binddeltag();
+				setTagid();
+				//添加到已有标签
+				$('.yuntag').prepend('<span data-id='+data.tagid+'>'+data.title+'</span>');
+				bindaddtag();
+				}else{
+				topmsg(data);	
+					}
+			}
+			});
+		});
+	});
+</script>

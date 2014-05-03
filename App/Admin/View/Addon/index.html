@@ -1,0 +1,67 @@
+<extend name="Public:base" />
+<block name="right">
+<div class="module cl">
+<div class="main-title">
+		<h2>
+		插件管理
+		</h2>
+	</div>
+    
+	<div class="row thead">
+	  <div class="col-md-1">序号</div>
+	  <div class="col-md-1">标识</div>
+	  <div class="col-md-2">名称</div>  
+	  <div class="col-md-1">作者</div>
+	  <div class="col-md-2">描述</div>
+	  <div class="col-md-1">类型</div>
+	  <div class="col-md-4">操作</div>
+	</div>
+	<volist name="_list" id="vo">
+	<div class="row">
+	  <div class="col-md-1">{$key+1}</div>
+	  <div class="col-md-1">{$vo.mark}</div>	
+	  <div class="col-md-2">{$vo.name}</div>
+	  <div class="col-md-1">{$vo.author}</div>
+	  <div class="col-md-2">{$vo.descr}</div>
+	   <div class="col-md-1">
+	  	<if condition="$vo.type neq 'system'">	
+	  	第三方
+	  		<else />
+	  		系统插件
+	  		</if>	   	
+	   </div>
+
+	  <div class="col-md-4">
+	  	<if condition="$vo.install eq '0'">
+	  	<a class="btn btn-primary" href='{:U('Addon/install?mark='.$vo['mark'])}'>安装</a>
+	  	<else />
+		  	<if condition="$vo.status eq '0'">
+		  	<a  class="btn ajax-href" href='{:U('Addon/qiyong?id='.$vo['id'])}'>启用</a>
+		  	<else />
+		  	<a  class="btn btn-warning ajax-href" href='{:U('Addon/jinyong?id='.$vo['id'])}'>禁用</a>
+		  	</if>	
+		  	<notempty name="vo['setmenu']">
+		  			<a  class="btn btn-primary" href='{:U($vo['setmenu']['url'])}'>设置</a>
+		  	</notempty>  
+		  	<if condition="$vo.type neq 'system'">	
+	  	<a class='btn btn-danger'href='{:U('Addon/uninstall?id='.$vo['id'])}'>卸载</a>
+	  		</if>
+	  	</if>
+
+	  </div>
+	</div>	
+	</volist>
+	</div>
+</block>
+<block name="script">
+	<script>
+	$(function(){
+	$('.btn-danger').bind('click',function(){
+		if(!confirm('卸载的话会删除应用的数据,确定卸载吗?'))return false;
+		ajaxhref($(this));
+	});
+	$('.row:odd').css('background','#ededed');		
+	});
+
+	</script>
+</block>

@@ -1,0 +1,31 @@
+<extend name="Public/base" />
+<block name="right">
+
+
+<div class="module cl">
+    <div class="main-title">
+<h2>添加用户组</h2>
+</div>
+    <form action="{:U()}" method="post" class="form-horizontal">
+        
+        
+        <div class="form-group">
+            <label class="item-label">组名称<span class="check-tips"></span></label>
+
+                <input type="text" class="form-control input-large" name="title" value="">
+
+        </div>
+
+        <div class="form-group">
+        <a class="btn ajax-post btn-large">确 定</a>
+			<a class="btn btn-warning btn-large" href="javascript:history.go(-1);">返 回</a>
+
+            <input name="id" value="{}" type="hidden" />
+        </div>
+    </form>
+    </div>
+</block>
+
+<block name="script">
+
+</block>

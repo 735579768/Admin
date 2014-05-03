@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<!--head start-->
+<include file="Public:head" />
+<!--head end-->
+<!--css start-->
+<link href="__CSS__/{:C('ADMIN_THEME')}/bootstrap.min.css" rel="stylesheet"  type="text/css" />
+<link href="__CSS__/reset.css" type="text/css" rel="stylesheet" media="all" />
+<link  href="__CSS__/layout.css" rel="stylesheet" type="text/css"media="all" />
+<script src="__STATIC__/js/jquery-1.8.1.min.js" type="text/javascript"></script>
+<script src="__STATIC__/js/common.js" type="text/javascript"></script>
+<block name="css">
+<link href="__CSS__/{:C('ADMIN_THEME')}/module.css" rel="stylesheet"  type="text/css" />
+<link href="__CSS__/input.css" rel="stylesheet"  type="text/css" />
+
+</block>
+<!--css end-->
+</head>
+
+<body>
+<!--header start-->
+<div class="header">
+<include file="Public:header" />
+</div>
+<!--header end-->
+
+<!--left start-->
+<div class="left bd">
+<include file="Public:left" />
+</div>
+<!--left end-->
+
+<!--right start-->
+<div class="right bd">
+<include file="Public:right" />
+</div>
+<!--right end-->
+
+<!--footer start-->
+<div class="footer">
+<include file="Public:footer" />
+</div>
+<!--footer end-->
+
+<!--script start-->
+
+<block name="script">
+
+</block>
+<!--script end-->
+
+<!--menu js-->
+<block name="menujs">
+<script>
+$(function(){
+	$('.menu_title').bind('click',function(){
+		obj=$(this).parents('.menu');
+		if(obj.hasClass('closed')){
+			obj.removeClass('closed');
+			}else{
+			obj.addClass('closed');	
+				}
+		});
+	//设置默认主菜单
+	$('.mainmenu a').each(function(index) {
+	  if($(this).attr('href')=='{$curmainmenu}')$(this).addClass('current');
+	});
+	//设置默认子菜单
+	$('dd.menu_item a').each(function(index) {
+	  if($(this).attr('href')=='__SELF__' )
+	  {
+	  	$(this).parent().addClass('selected');
+	  	$(this).parent().parent().removeClass('closed');
+	  }
+	});
+	//退出
+	$('.logout').bind('click', function(event) {
+	  if(!confirm('确定要退出吗?'))return false;
+	});
+});
+</script>
+</block>
+</body>
+</html>
