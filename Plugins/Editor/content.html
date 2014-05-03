@@ -17,7 +17,8 @@
 						pasteType : 2,
 						urlType : 'absolute',
 						fileManagerJson : '{:U('fileManagerJson')}',
-						uploadJson : '{:UP('Editor/ke_upimg')}'
+						uploadJson : '{:UP('Editor/ke_upimg')}',
+						'afterBlur':function(){this.sync();}
 					});
 				});
 
