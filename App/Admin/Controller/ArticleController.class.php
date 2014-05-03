@@ -237,7 +237,7 @@ class ArticleController extends AdminController {
         }
 
         //$list = $this->lists($Document,$map,'level DESC,id DESC');
-        $list = $this->pages('Document',$map,$join);
+        $list = $this->pages('Document',$map,$join,'','update_time desc');
 //         int_to_string($list);
         if($map['pid']){
             // 获取上级文档

@@ -1,6 +1,7 @@
 <?php
 return array(
 	//'配置项'=>'配置值'
+	'DEFAULT_FILTER'        =>  '',
     //'APP_AUTOLOAD_PATH'=>__ROOT__.'/Plugins/',
 	'ADMIN_THEME'=>'default',
    /* 文件上传相关配置 */

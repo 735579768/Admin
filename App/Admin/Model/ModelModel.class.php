@@ -32,13 +32,14 @@ class ModelModel extends Model{
         array('update_time', NOW_TIME, self::MODEL_BOTH),
         array('status', '1', self::MODEL_INSERT, 'string'),
     	array('field_sort', 'getFields', self::MODEL_BOTH, 'callback'),
-        array('list_grid', 'decode', self::MODEL_BOTH,'callback' ),
+      //  array('list_grid', 'decode', self::MODEL_BOTH,'callback' ),
     );
 
-function decode($str){
-    return str_replace('&amp;','&', $str);
+// function decode($str){
+//    return $str;
+//    // return str_replace('&amp;','&', $str);
     
-}
+// }
     /**
      * 新增或更新一个文档
      * @return boolean fasle 失败 ， int  成功 返回完整的数据
