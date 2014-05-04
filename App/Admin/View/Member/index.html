@@ -27,7 +27,9 @@
 	  <div class="col-md-2">{$vo.last_login_ip}</div>
       <div class="col-md-3">
       <a href="{:U('Member/edit?id='.$vo['id'])}" class="btn btn-primary">编辑</a>
+      <neq name="vo.username" value="admin">
        <a href="{:U('Member/del?id='.$vo['id'])}" class="btn btn-danger ajax-href-del">移到回收站</a>
+      </neq>
       </div>
 	</div>
     </volist>

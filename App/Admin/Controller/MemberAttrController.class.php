@@ -19,7 +19,7 @@ class MemberAttrController extends AdminController {
  	$this->assign('meta_title','用户注册项管理');
  }
  public function index(){
-	 $list=M('MemberAttr')->select();
+	 $list=M('MemberAttr')->order('`sort` asc')->select();
 	 $this->assign('_list',$list);
 	 $this->display();
 	 }

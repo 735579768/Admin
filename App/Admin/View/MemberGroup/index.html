@@ -19,7 +19,9 @@
 	  <div class="col-md-3">{$vo.status|totext}</div>  
 	  <div class="col-md-3">
       <a href="{:U('MemberGroup/edit?id='.$vo['id'])}" class="btn btn-primary">编辑</a>
+      <eq name="vo.group_type" value="other">
       <a href="{:U('MemberGroup/del?id='.$vo['id'])}" class="btn btn-danger ajax-href-del">删除</a>
+      </eq>
       </div>
 	</div>
     </volist>
