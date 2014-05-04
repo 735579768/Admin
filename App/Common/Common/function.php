@@ -400,3 +400,8 @@ function mbstringtoarray($str,$charset) {
     }
     return $array;
 }
+
+function removeHtml($str, $start=0, $length, $charset="utf-8", $suffix=true){
+	$str=strip_tags($str);
+	return msubstr($str, $start=0, $length, $charset="utf-8", $suffix=true);
+}
