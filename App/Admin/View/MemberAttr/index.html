@@ -1,0 +1,39 @@
+<extend name="Public:base" />
+<block name="right">
+<div class="module cl">
+    <div class="main-title">
+<h2>{$meta_title}</h2>
+</div>
+        	<!-- 按钮工具栏 -->
+	<div class="cf">
+		<div class="fl">
+			<a class="btn btn-primary"  href="{:U("MemberAttr/add")}">新 增</a>
+		</div>
+	</div>
+	<div class="row thead">
+	  <div class="col-md-3">序号</div>
+	  <div class="col-md-3">注册项名称</div>
+	  <div class="col-md-3">类型</div>  
+	  <div class="col-md-3">操作</div>
+	</div>
+    
+    <volist name="_list" id="vo">
+    <div class="row">
+	  <div class="col-md-3">{$key+1}</div>
+	  <div class="col-md-3">{$vo.attr_title}</div>
+	  <div class="col-md-3">{$vo.attr_type}</div>  
+	  <div class="col-md-3">
+      <a href="{:U('MemberAttr/edit?id='.$vo['id'])}" class="btn btn-primary">编辑</a>
+      <a href="{:U('MemberAttr/del?id='.$vo['id'])}" class="btn btn-danger ajax-href-del">删除</a>
+      </div>
+	</div>
+    </volist>
+    </div>
+</block>
+<block name="script">
+<script>
+$(function(){
+	$('.row:odd').css('background','#ededed');
+	});
+</script>
+</block>

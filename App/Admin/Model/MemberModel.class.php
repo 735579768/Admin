@@ -202,8 +202,9 @@ class MemberModel extends Model {
         $data = array(
             'id'              => $uid,
             'last_login_time' => NOW_TIME,
-            'last_login_ip'   => get_client_ip(1),
+            'last_login_ip'   => get_client_ip(0),
         );
+		M('Member')->where("id=$uid")->setInc('login');
         $this->save($data);
 
     }
