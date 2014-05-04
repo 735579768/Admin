@@ -350,6 +350,44 @@ function think_decrypt($data, $key = ''){
     return base64_decode($str);
 }
 /**
+ * 获取文档模型信息
+ * @param  integer $id    模型ID
+ * @param  string  $field 模型字段
+ * @return array
+ */
+function get_document_model($id = null, $field = null){
+    static $list;
+
+    /* 非法分类ID */
+    if(!(is_numeric($id) || is_null($id))){
+        return '';
+    }
+
+    /* 读取缓存数据 */
+    if(empty($list)){
+        $list = S('DOCUMENT_MODEL_LIST');
+    }
+
+    /* 获取模型名称 */
+    if(empty($list)){
+        $map   = array('status' => 1, 'extend' => 1);
+        $model = M('Model')->where($map)->field(true)->select();
+        foreach ($model as $value) {
+            $list[$value['id']] = $value;
+        }
+        S('DOCUMENT_MODEL_LIST', $list); //更新缓存
+    }
+
+    /* 根据条件返回数据 */
+    if(is_null($id)){
+        return $list;
+    } elseif(is_null($field)){
+        return $list[$id];
+    } else {
+        return $list[$id][$field];
+    }
+}
+/**
  *把分类转成导航链接
  */
  function cattonav($catarr){
