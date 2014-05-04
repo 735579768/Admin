@@ -31,10 +31,7 @@ class Think extends TagLib{
         $parse  = $parse   = '<?php ';
         $parse .= '$__NAV__ = M(\'Channel\')->field('.$field.')->where("status=1")->order("sort")->select();';
 		$parse .= '$__NAV1__ = M(\'Category\')->field('.$field.')->where("nav_show=1")->order("sort")->select();';
-		$parse .='if(!empty($__NAV1__)){';
-		$parse .='$__NAV1__=cattonav($__NAV1__);';
-        $parse .='$__NAV__=array_merge($__NAV__,$__NAV1__);';
-		$parse .='}';
+		$parse .='$__NAV__=cattonav($__NAV__,$__NAV1__);';
 		if($tree){
             $parse .= '$__NAV__ = list_to_tree($__NAV__, "id", "pid", "_");';
         }

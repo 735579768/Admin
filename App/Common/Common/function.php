@@ -390,11 +390,17 @@ function get_document_model($id = null, $field = null){
 /**
  *把分类转成导航链接
  */
- function cattonav($catarr){
-	 foreach ($catarr as $key=>$value){
-		 	$catarr[$key]['url']="cat/{$value['name']}";
-		 }
-		 return $catarr;
+ function cattonav($navarr,$catarr){
+	 if(!empty($catarr)){
+		 foreach ($catarr as $key=>$value){
+				$catarr[$key]['url']="cat/{$value['name']}";
+			 }	
+			return array_merge($navarr,$catarr);	 
+		 }else{
+			 return $navarr;
+			 }
+
+		 
 	 }
 /**
  * 字符串截取，支持中文和其他编码
