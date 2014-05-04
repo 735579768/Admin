@@ -20,6 +20,7 @@
 				<div class="fold">折叠</div>
 				<div class="order">排序</div>
 				<div class="order">状态</div>
+                <div class="order">导航显示</div>
 				<div class="name">名称</div>
 			</div>
 			{:R('Category/tree', array($tree))}
@@ -82,5 +83,18 @@
                 });
 		})(jQuery);
 		$('.category .icon-unfold').click();
+		$(function(){
+			//导航显示选择操作
+			$('input[name="nav_show"]').bind('click',function(){
+				var a=$(this).is(':checked');
+				if(a){$(this).val(1);}else{$(this).val(0);}
+				});
+			//初始化多选框
+			$('input[name="nav_show"]').each(function(index, element) {
+                if($(this).val()=='1'){
+					$(this).attr('checked',true);
+					}
+            });
+			});
 	</script>
 </block>

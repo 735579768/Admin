@@ -349,3 +349,12 @@ function think_decrypt($data, $key = ''){
     }
     return base64_decode($str);
 }
+/**
+ *把分类转成导航链接
+ */
+ function cattonav($catarr){
+	 foreach ($catarr as $key=>$value){
+		 	$catarr[$key]['url']="cat/{$value['name']}";
+		 }
+		 return $catarr;
+	 }

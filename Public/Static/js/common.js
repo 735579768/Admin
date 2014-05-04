@@ -68,7 +68,7 @@ function ajaxform(thisobj){
         return false;
     });
 	url=formobj.attr('action');
-	postdata=formobj.find('input,select,textarea').serialize();
+	postdata=formobj.serialize();
 	a='{'+a+'}';
 	b=eval('('+a+')');
 	$.ajax({

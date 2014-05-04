@@ -49,7 +49,7 @@
 							<div class="radio"><label class="inline radio"><input type="radio" name="allow_publish" value="2" >允许前后台</label></div>
 						</div>
 					</div>
-					<div class="form-group">
+					<div class="form-group" style="display:none;">
 						<label class="item-label">
 							是否审核<span class="check-tips">（在该分类下发布的内容是否需要审核）</span>
 						</label>
@@ -68,7 +68,13 @@
 							</volist>
 						</div>
 					</div>
-					<div class="form-group">
+                    <div class="form-group">
+						<label class="item-label">导航显示</label>
+						
+							<input type="checkbox" name="nav_show" value="{$info['nav_show']}" />
+						
+					</div>
+					<div class="form-group" style="display:none;">
 						<label class="item-label">允许文档类型</label>
 						<div class="controls">
 							<volist name=":C('DOCUMENT_MODEL_TYPE')" id="type">
@@ -237,6 +243,20 @@ $('.tab-wrap').mytab({		'ev':'click',
                             'navhovercls':'current',//nav显示时候拥有的类
                             'divshowcls':'d1'//div显示的时候拥有的类
 });
+
+
+			//导航显示选择操作
+			$('input[name="nav_show"]').bind('click',function(){
+				var a=$(this).is(':checked');
+				if(a){$(this).val(1);}else{$(this).val(0);}
+				});
+			//初始化多选框
+			$('input[name="nav_show"]').each(function(index, element) {
+                if($(this).val()=='1'){
+					$(this).attr('checked',true);
+					}
+            });
+
 });
 </script>
 

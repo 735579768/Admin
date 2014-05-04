@@ -37,9 +37,20 @@ class CategoryModel extends Model{
         array('create_time', NOW_TIME, self::MODEL_INSERT),
         array('update_time', NOW_TIME, self::MODEL_BOTH),
         array('status', '1', self::MODEL_BOTH),
+		array('nav_show','getNavshow',self::MODEL_BOTH,'callback'),
     );
 
-
+/*
+ *返回导航显示默认值
+ *
+ */
+ function getNavshow($navshow){
+	 if(empty($navshow)){
+	 	return 0;
+	 }else{
+		return $navshow; 
+		 }
+ }
     /**
      * 获取分类详细信息
      * @param  milit   $id 分类ID或标识
