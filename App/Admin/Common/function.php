@@ -544,3 +544,19 @@ function get_table_field($value = null, $condition = 'id', $field = null, $table
     }
     return $info;
 }
+/**
+ *取用户组标题
+ *@param string $id 分组id
+ *@param string $member_id 用户id
+ */
+
+function getgrouptitle($id,$member_id){
+	$row=array();
+	if(!empty($id)){
+		$row=M('MemberGroup')->field('title')->where("id=$id")->find();
+	}elseif(!empty($member_id)){
+		$row=M('Member')->join("kl_member_group as a on kl_member.groupid=a.id ")->field('a.title as title')->where("kl_member.id=$member_id")->find();	
+		}
+	
+	return $row['title'];
+	}

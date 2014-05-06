@@ -8,7 +8,17 @@
     </div>
     <form action="{:U()}" method="post" class="form-horizontal">
         
-        
+        <div class="form-group">
+            <label class="item-label">所属用户组<span class="check-tips"></span></label>
+						<div class="controls">
+							<select name="group_id" id="data-type" class="form-control input-mid">
+								<option value="">----请选择----</option>
+                                <volist name="grouplist" id="vo">
+								<option value="{$vo.id}">{$vo.title}</option>
+								</volist>
+							</select>
+						</div>
+        </div>        
         <div class="form-group">
             <label class="item-label">标题<span class="check-tips"></span></label>
                 <input type="text" class="form-control input-large" name="attr_title" value="{$data.attr_title}">
@@ -55,6 +65,7 @@
 $(function(){
 	$('select[name="attr_yanzheng"]').val('{$data.attr_yanzheng}');
 	$('select[name="attr_type"]').val('{$data.attr_type}');
+	$('select[name="group_id"]').val('{$data.group_id}');
 	});
 </script>
 </block>

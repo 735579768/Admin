@@ -127,4 +127,26 @@ class MemberController extends AdminController {
         $this->error('操作失败');
       }
     }
+	//编辑用户信息
+	function edit($member_id=null){
+		if($member_id===null)$member_id=I('post.member_id');
+		if(empty($member_id))$this->error('用户id不能为空');
+		if(IS_POST){
+
+     		 $msg=D('MemberAttrvalue')->updateMemberInfo($member_id);
+			if($msg['status']==='0'){
+				$this->error($msg['info']);
+				}else{
+				$this->success($msg['info']);	
+					}
+		}else{
+
+			$fieldlist=D('MemberAttrvalue')->getMemberInfo($member_id);
+			$this->assign('member_id',$member_id);
+			$this->assign('fieldlist',$fieldlist);
+			
+			$this->display();				
+				}
+
+		}
 }

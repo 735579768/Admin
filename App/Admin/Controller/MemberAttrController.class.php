@@ -18,8 +18,13 @@ class MemberAttrController extends AdminController {
    parent::_initialize();
  	$this->assign('meta_title','用户注册项管理');
  }
+ //取用户组
+ public function getgroup(){
+	 $rows=M('MemberGroup')->where('status>0')->select();
+	 $this->assign('grouplist',$rows);
+	 }
  public function index(){
-	 $list=M('MemberAttr')->order('`sort` asc')->select();
+	 $list=M('MemberAttr')->order('group_id desc,`sort` asc')->select();
 	 $this->assign('_list',$list);
 	 $this->display();
 	 }
@@ -37,6 +42,7 @@ class MemberAttrController extends AdminController {
 			$this->error($model->geterror());	 
 				 }
 	  }else{
+		  $this->getgroup();
 		 $this->display('edit');	 
 			 }
 	
@@ -58,6 +64,7 @@ class MemberAttrController extends AdminController {
 				 }		 
 		 }else{
 		if(empty($id))$this->error('id不能为空');
+		$this->getgroup();
 		$data=M('MemberAttr')->where("id=$id")->find();
 		$this->assign('data',$data);
 		$this->display();	 

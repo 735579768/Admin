@@ -1,0 +1,186 @@
+<extend name="Public:base" />
+<block name="right">
+<div class="module cl">
+    <div class="main-title">
+<h2>编辑{$member_id|getgrouptitle=null,###}信息</h2>
+</div>
+	<script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
+	<link rel="stylesheet" href="__STATIC__/kindeditor/default/default.css" />
+	<script charset="utf-8" src="__STATIC__/kindeditor/kindeditor-min.js"></script>
+	<script charset="utf-8" src="__STATIC__/kindeditor/zh_CN.js"></script>
+    <form action="{:U()}" method="post" class="form-horizontal">
+		<!-- 基础文档模型 -->
+		<volist name="fieldlist" id="field">
+        <div id="tab{$key}" class="tab-pane <eq name="key" value="1">in</eq> tab{$key}">
+            
+                <if condition="$field['is_show'] == 1 || $field['is_show'] == 3">
+                <div class="form-group cf">
+                    <label class="item-label">{$field['attr_title']}<span class="check-tips"><notempty name="field['remark']">（{$field['remark']}）</notempty></span></label>
+                    <div class="controls">
+                        <switch name="field.attr_type">
+                            <case value="num">
+                                <input type="text" class="form-control input-small" name="{$field.attr_name}_{$field.id}" data-arrt_name="{$field.attr_name}"  value="{$field['attr_value']}">
+                            </case>
+                            <case value="string">
+                                <input type="text" class="form-control input-large" name="{$field.attr_name}_{$field.id}" data-arrt_name="{$field.attr_name}"  value="{$field['attr_value']}">
+                            </case>
+                            <case value="textarea">
+                                <label class="form-controlarea input-large">
+                                <textarea class="form-control input-large" name="{$field.attr_name}_{$field.id}" data-arrt_name="{$field.attr_name}" >{$field['attr_value']}</textarea>
+                                </label>
+                            </case>
+                            <case value="datetime">
+                                <input type="text" name="{$field.attr_name}_{$field.id}" data-arrt_name="{$field.attr_name}"  class="form-control input-large time" value="{$field['attr_value']|time_format}" placeholder="请选择时间" />
+                            </case>
+                            <case value="bool">
+                                <select name="{$field.attr_name}_{$field.id}" data-arrt_name="{$field.attr_name}" >
+                                    <volist name=":parse_field_attr($field['extra'])" id="vo">
+                                        <option value="{$key}" <eq name="field['attr_value']" value="$key">selected</eq>>{$vo}</option>
+                                    </volist>
+                                </select>
+                            </case>
+                            <case value="select">
+                                <select name="{$field.attr_name}_{$field.id}" data-arrt_name="{$field.attr_name}" >
+                                    <volist name=":parse_field_attr($field['extra'])" id="vo">
+                                        <option value="{$key}" <eq name="field['attr_value']" value="$key">selected</eq>>{$vo}</option>
+                                    </volist>
+                                </select>
+                            </case>
+                            <case value="radio">
+                                <volist name=":parse_field_attr($field['extra'])" id="vo">
+                                	<label class="radio">
+                                    <input type="radio" value="{$key}" name="{$field.attr_name}_{$field.id}" data-arrt_name="{$field.attr_name}"  <eq name="field['attr_value']" value="$key">checked="checked"</eq>>{$vo}
+                                	</label>
+                                </volist>
+                            </case>
+                            <case value="checkbox">
+                                <volist name=":parse_field_attr($field['extra'])" id="vo">
+                                <div class="checkbox">
+                                	<label class="checkbox">
+                                    <input type="checkbox" value="{$key}" name="{$field.attr_name}_{$field.id}[]" <if condition="check_document_position($field['attr_value'],$key)">checked="checked"</if>>{$vo}
+                                	</label>
+                                    </div>
+                                </volist>
+                            </case>
+                            <case value="editor">
+                                <label class="w100">
+                            
+                                {:hook('Editor',array($field['name'],$field['attr_value']))}
+                                </label>
+                            </case>
+                            <case value="picture">
+                                <div class="controls">
+									<input type="file" id="upload_picture_{$field.attr_name}_{$field.id}">
+									<input type="hidden" name="{$field.attr_name}_{$field.id}" data-arrt_name="{$field.attr_name}"  id="cover_id_{$field.attr_name}_{$field.id}" value="{$field['attr_value']}"/>
+									<div class="upload-img-box">
+									<notempty name="field['attr_value']">
+										<div class="upload-pre-item"><img src="__ROOT__{$field['attr_value']|get_cover='path'}"/></div>
+									</notempty>
+									</div>
+								</div>
+								<script type="text/javascript">
+								//上传图片
+							    /* 初始化上传插件 */
+								$("#upload_picture_{$field.attr_name}_{$field.id}").uploadify({
+							        "height"          : 30,
+							        "swf"             : "__STATIC__/uploadify/uploadify.swf",
+							        "fileObjName"     : "download",
+							        "buttonText"      : "上传图片",
+							        "uploader"        : "{:U('File/uploadPicture',array('session_id'=>session_id()))}",
+							        "width"           : 120,
+							        'removeTimeout'	  : 1,
+							        'fileTypeExts'	  : '*.jpg; *.png; *.gif;',
+							        "onUploadSuccess" : uploadPicture{$field.attr_name}_{$field.id},
+							        'onFallback' : function() {
+							            alert('未检测到兼容版本的Flash.');
+							        }
+							    });
+								function uploadPicture{$field.attr_name}_{$field.id}(file, data){
+							    	var data = $.parseJSON(data);
+							    	var src = '';
+							        if(data.status){
+							        	$("#cover_id_{$field.attr_name}_{$field.id}").val(data.id);
+							        	src = data.url || '__ROOT__' + data.path
+							        	$("#cover_id_{$field.attr_name}_{$field.id}").parent().find('.upload-img-box').html(
+							        		'<div class="upload-pre-item"><img src="' + src + '"/></div>'
+							        	);
+							        } else {
+							        	updateAlert(data.info);
+							        	setTimeout(function(){
+							                $('#top-alert').find('button').click();
+							               // $(that).removeClass('disabled').prop('disabled',false);
+							            },1500);
+							        }
+							    }
+								</script>
+                            </case>
+                            <case value="file">
+								<div class="controls">
+									<input type="file" id="upload_file_{$field.attr_name}_{$field.id}">
+									<input type="hidden" name="{$field.attr_name}_{$field.id}" data-arrt_name="{$field.attr_name}"  value="{:think_encrypt(json_encode(get_table_field($field['attr_value'],'id','','File')))}"/>
+									<div class="upload-img-box">
+										<present name="field['attr_value']">
+											<div class="upload-pre-file"><span class="upload_icon_all"></span>{$field['attr_value']|get_table_field=###,'id','name','File'}</div>
+										</present>
+									</div>
+								</div>
+								<script type="text/javascript">
+								//上传图片
+							    /* 初始化上传插件 */
+								$("#upload_file_{$field.attr_name}_{$field.id}").uploadify({
+							        "height"          : 30,
+							        "swf"             : "__STATIC__/uploadify/uploadify.swf",
+							        "fileObjName"     : "download",
+							        "buttonText"      : "上传附件",
+							        "uploader"        : "{:U('File/upload',array('session_id'=>session_id()))}",
+							        "width"           : 120,
+							        'removeTimeout'	  : 1,
+							        "onUploadSuccess" : uploadFile{$field.attr_name}_{$field.id},
+							        'onFallback' : function() {
+							            alert('未检测到兼容版本的Flash.');
+							        }
+							    });
+								function uploadFile{$field.attr_name}_{$field.id}(file, data){
+									var data = $.parseJSON(data);
+							        if(data.status){
+							        	var name = "{$field.attr_name}_{$field.id}";
+							        	$("input[name="+name+"]").val(data.data);
+							        	$("input[name="+name+"]").parent().find('.upload-img-box').html(
+							        		"<div class=\"upload-pre-file\"><span class=\"upload_icon_all\"></span>" + data.info + "</div>"
+							        	);
+							        } else {
+							        	updateAlert(data.info);
+							        	setTimeout(function(){
+							                $('#top-alert').find('button').click();
+							                $(that).removeClass('disabled').prop('disabled',false);
+							            },1500);
+							        }
+							    }
+								</script>
+                            </case>
+                            <case value="custom">
+                            {:W('CustomForm/'.$field['extra'],array($field['name'],$field['attr_value']))}
+                            </case>
+                            <default/>
+                            <input type="text" class="form-control input-large" name="{$field.attr_name}_{$field.id}" data-arrt_name="{$field.attr_name}"  value="{$field['attr_value']}">
+                        </switch>
+                    </div>
+                </div>
+                </if>
+        </div>
+		</volist>
+
+		<div class="form-group cf">
+<a class="btn ajax-post btn-large">确 定</a>
+
+			<a class="btn btn-warning btn-large" href="javascript:history.go(-1);">返 回</a>
+			<if condition="C('OPEN_DRAFTBOX') and (ACTION_NAME eq 'add' or $data['status'] eq 3)">
+			<button class="btn save-btn" url="{:U('article/autoSave')}" target-form="form-horizontal" id="autoSave">
+				存草稿
+			</button>
+			</if>
+			<input type="hidden" name="member_id" value="{:I('get.member_id')}"/>
+		</div>
+	</form>
+</div>
+</block>

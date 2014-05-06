@@ -265,12 +265,20 @@ $(function(){
             var uploadImg = $("#uploadPop").find("img");
             var popW = uploadImg.width();
             var popH = uploadImg.height();
-            var left = (winW -popW)/2;
-            var top = (winH - popH)/2 + 50;
+//            var left = (winW -popW)/2;
+//            var top = (winH - popH)/2 + 50;
+//            $(".upload-img-popup").css({
+//                "max-width" : winW * 0.9,
+//                "left": left,
+//                "top": top
+//            });
             $(".upload-img-popup").css({
-                "max-width" : winW * 0.9,
-                "left": left,
-                "top": top
+                "max-width" : winW * 0.5,
+                "left": '50%',
+                "top": '50%',
+				'marginLeft':'-'+(popW/2)+'px',
+				'marginTop':'-'+(popH/2)+'px',
+				'position':'fixed'
             });
         });
 
