@@ -1,0 +1,50 @@
+<extend name="Public:base" />
+<block name="right">
+<div class="module cl">
+<div class="main-title">
+		<h2>
+		{$meta_title}
+		</h2>
+	</div>
+    
+	<div class="row thead">
+	  <div class="col-md-1">序号</div>
+	  <div class="col-md-1">昵称</div>
+	  <div class="col-md-2">邮箱</div>  
+	  <div class="col-md-2">地址</div>
+	  <div class="col-md-2">内容</div>
+	  <div class="col-md-1">时间</div>
+      <div class="col-md-1">ip</div>
+	  <div class="col-md-2">操作</div>
+	</div>
+	<volist name="_list" id="vo">
+	<div class="row">
+	  <div class="col-md-1">{$key+1}</div>
+	  <div class="col-md-1">{$vo.nickname}</div>	
+	  <div class="col-md-2">{$vo.email}</div>
+	  <div class="col-md-2">{$vo.url}</div>
+	  <div class="col-md-2">{$vo.content}</div>
+	   <div class="col-md-1">{$create_time|time_format}</div>
+	  <div class="col-md-1">{$vo.ip}</div>
+	  <div class="col-md-2">
+	  	
+<a class="btn btn-primary" href='{:U('Comments/check?id='.$vo['id'])}'>查看</a>
+<a class="btn btn-primary ajax-href-del" href='{:U('Comments/del?id='.$vo['id'])}'>删除</a>
+	  </div>
+	</div>	
+	</volist>
+	</div>
+    <div class="page">{$_page}</div>
+</block>
+<block name="script">
+	<script>
+	$(function(){
+	$('.btn-danger').bind('click',function(){
+		if(!confirm('卸载的话会删除应用的数据,确定卸载吗?'))return false;
+		ajaxhref($(this));
+	});
+	$('.row:odd').css('background','#ededed');		
+	});
+
+	</script>
+</block>
