@@ -5,19 +5,19 @@
   </div>
     <div class="form-group">
     <label for="exampleInputEmail1">邮箱</label>
-    <input type="text" name="email" class="form-control"  placeholder="输入你的邮箱">
+    <input type="text" name="email" class="form-control input-mid"  placeholder="输入你的邮箱">
   </div>
     <div class="form-group">
     <label for="exampleInputEmail1">地址</label>
-    <input type="text" name="url" class="form-control"  placeholder="输入您的主页地址">
+    <input type="text" name="url" class="form-control input-mid"  placeholder="输入您的主页地址">
   </div>
     <div class="form-group">
     <label for="exampleInputEmail1">内容</label>
-    <input type="text" name="content" class="form-control" placeholder="输入内容">
+    <textarea name="content" class="form-control input-large" placeholder="输入内容"></textarea>
   </div>
       <div class="form-group">
     <label for="exampleInputEmail1">验证码</label>
-    <input type="text" name="verify" class="form-control" placeholder="输入验证码"><br />
+    <input type="text" name="verify" class="form-control input-mid" placeholder="输入验证码"><br />
 
     <img style="cursor:pointer;" class="verifyimg reloadverify" alt="点击切换" onclick="this.src='{:U('public/verify')}?random='+Math.random();" src="{:U('public/verify')}">
     
