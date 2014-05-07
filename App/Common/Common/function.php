@@ -394,6 +394,7 @@ function get_document_model($id = null, $field = null){
 	 if(!empty($catarr)){
 		 foreach ($catarr as $key=>$value){
 				$catarr[$key]['url']="cat/{$value['name']}";
+				$catarr[$key]['target']=0;
 			 }	
 			return array_merge($navarr,$catarr);	 
 		 }else{
