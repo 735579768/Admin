@@ -128,7 +128,7 @@
 							        		'<div class="upload-pre-item"><img src="__ROOT__' + src + '"/></div>'
 							        	);
 							        } else {
-							        	updateAlert(data.info);
+							        	topmsg(data);
 							        	setTimeout(function(){
 							                $('#top-alert').find('button').click();
 							                $(that).removeClass('disabled').prop('disabled',false);
@@ -172,7 +172,7 @@
 							        		"<div class=\"upload-pre-file\"><span class=\"upload_icon_all\"></span>" + data.info + "</div>"
 							        	);
 							        } else {
-							        	updateAlert(data.info);
+							        	topmsg(data);
 							        	setTimeout(function(){
 							                $('#top-alert').find('button').click();
 							                $(that).removeClass('disabled').prop('disabled',false);
@@ -256,7 +256,7 @@ $('.tab-wrap').mytab({		'ev':'click',
                 updateAlert(data.info ,'alert-success');
                 $('input[name=id]').val(data.data.id);
             }else{
-                updateAlert(data.info);
+                topmsg(data);
             }
             setTimeout(function(){
                 $('#top-alert').find('button').click();
