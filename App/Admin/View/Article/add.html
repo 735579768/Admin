@@ -199,7 +199,8 @@
 
 			<a class="btn btn-warning btn-large" href="{:U('article/index?cate_id='.$cate_id)}">返 回</a>
 			<if condition="C('OPEN_DRAFTBOX') and (ACTION_NAME eq 'add' or $info['status'] eq 3)">
-			<button class="btn save-btn" url="{:U('article/autoSave')}" target-form="form-horizontal" id="autoSave">
+			<button class="btn save-btn btn-primary btn-large" url="{:U('article/autoSave')}" target-form="form-horizontal" id="autoSave">
+            
 				存草稿
 			</button>
 			</if>
@@ -253,7 +254,7 @@ $('.tab-wrap').mytab({		'ev':'click',
         $(that).addClass('disabled').attr('autocomplete','off').prop('disabled',true);
         $.post(target,query).success(function(data){
             if (data.status==1) {
-                updateAlert(data.info ,'alert-success');
+                topmsg(data);
                 $('input[name=id]').val(data.data.id);
             }else{
                 topmsg(data);

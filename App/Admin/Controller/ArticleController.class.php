@@ -480,6 +480,7 @@ class ArticleController extends AdminController {
             $return['data']     =   $res;
             $return['info']     =   '保存草稿成功';
             $return['status']   =   1;
+			$return['norefresh']=true;
             $this->ajaxReturn($return);
         }else{
             $this->error('保存草稿失败：'.D('Document')->getError());
