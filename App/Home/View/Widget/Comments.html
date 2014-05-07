@@ -1,7 +1,7 @@
 <form method="post" action="{:U('Comments/add')}">
   <div class="form-group">
     <label for="exampleInputEmail1">昵称</label>
-    <input type="text" name="nickname" class="form-control"  placeholder="输入您的昵称">
+    <input type="text" name="nickname" class="form-control input-mid"  placeholder="输入您的昵称">
   </div>
     <div class="form-group">
     <label for="exampleInputEmail1">邮箱</label>
@@ -23,8 +23,8 @@
     
   </div>
     <div class="form-group">
-    <input name="arc_id" type="hidden" value="" />
-	<input name="pid" type="hidden" value="" />
+    <input name="arc_id" type="hidden" value="{$arc_id}" />
+	<input name="pid" type="hidden" value="0" />
     <button type="submit" class="btn btn-default">提交评论</button>
   </div>
 </form>
